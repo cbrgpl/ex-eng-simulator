@@ -55,7 +55,7 @@ Guide in vuetify docs does not work at all, because of vite or something else. I
 1. Added vuetify to [global styles](./src/scss/_global.scss) with `@use 'vuetify/lib/styles/main.sass';`
 2. Encapsulate vuetify customization to individual [file](./src/scss/libs/_vuetify.scss)
 
-# Stylelint + VSC
+## Stylelint + VSC
 
 For stylelint in Visual studio code U need append properties to [$root/.vscode/settings.json](./.vscode/settings.json)
 
