@@ -1,0 +1,8 @@
+
+@use 'vuetify/settings' with (
+    $reset: true,
+    $card-background: rgb(var(--v-theme-surface)),
+    $body-font-family: 'Ubuntu',
+    $button-text-letter-spacing: 0.2px,
+);
+  
