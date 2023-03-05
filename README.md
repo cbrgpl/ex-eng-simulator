@@ -46,7 +46,7 @@ Important files and modules:
 To add extra language support U need:
 
 1. Add language to `SUPPORT_LOCALES` in [i18n module](./src/utils/plugins/i18n/index.ts)
-2. Create languge static file in (localization)[./src/] followed by pattern `[language_code].json`
+2. Create languge static file in [localization](./src/localization/) followed by pattern `[language_code].json`
 
 ## Vuetify + SCSS
 
