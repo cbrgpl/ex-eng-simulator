@@ -2,12 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import { languageSupportGuard } from './guards/languageSupportGuard'
 
+import { profileRoutes } from '@mprofile'
+
 const routes = [
   {
     path: '/',
     name: 'Root',
-    redirect: { name: 'MainPage' },
-    component: () => import( '@/layouts/MainLayout.vue' ),
+    redirect: { name: 'Profile' },
     children: [
       {
         path: '/main-page',
@@ -17,11 +18,7 @@ const routes = [
           msg: 'router msg',
         },
       },
-      {
-        path: '/counter-page',
-        name: 'CounterPage',
-        component: () => import( '@/views/CounterPage.vue' ),
-      },
+      ...profileRoutes,
     ],
   },
 ]

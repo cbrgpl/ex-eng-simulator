@@ -17,5 +17,5 @@ defineProps<{ msg: string }>()
   </p>
 </template>
 
-<style scoped >
+<style scoped lang="scss" >
 </style>

@@ -1,12 +1,13 @@
 const bemMatching = /^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+){0,2}$/
 
 module.exports = {
+  "plugins": [
+    "stylelint-scss"
+  ],
   'extends': [
     'stylelint-config-standard',
+    'stylelint-config-recommended-scss',
     'stylelint-config-hudochenkov/order'
-  ],
-  "ignoreFiles": [
-    "index.html"
   ],
   'overrides': [
     {
@@ -27,29 +28,9 @@ module.exports = {
     // DEFAULT
     'indentation': 2,
     'no-empty-source': null,
-    'function-no-unknown': [
-      true,
-      {
-        'ignoreFunctions': [
-          'theme'
-        ]
-      }
-    ],
     'selector-class-pattern': bemMatching,
     'max-nesting-depth': 2,
-    'at-rule-no-unknown': [
-        true,
-        {
-          'ignoreAtRules': [
-            'tailwind',
-            'layer',
-            'apply',
-            'variants',
-            'responsive',
-            'screen'
-          ]
-        }
-      ],
+    'at-rule-no-unknown': null,
       "value-keyword-case": [
         "lower",
         {
@@ -58,8 +39,16 @@ module.exports = {
           ]
         }
       ],
-      "string-quotes": "single",
+      'import-notation': 'string',
     // ORDER
     'order/properties-alphabetical-order': null,
+    // SCSS
+    'scss/at-rule-no-unknown': [
+      true,
+      {
+        'ignoreAtRules': []
+      }
+    ],
+    'scss/no-global-function-names': null,
   }
 }

@@ -1,9 +1,10 @@
 {
   "name": "ex-eng-simulator",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "check-types": "vue-tsc --watch",
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
@@ -32,6 +33,7 @@
     "sass": "^1.58.3",
     "stylelint": "^15.2.0",
     "stylelint-config-hudochenkov": "^9.0.0",
+    "stylelint-config-recommended-scss": "^9.0.1",
     "stylelint-config-standard": "^30.0.1",
     "stylelint-order": "^6.0.2",
     "stylelint-scss": "^4.4.0",
