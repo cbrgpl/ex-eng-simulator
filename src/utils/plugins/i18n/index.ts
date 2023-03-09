@@ -1,6 +1,8 @@
-import { createI18n, I18nOptions, I18n } from 'vue-i18n'
-import { ref, readonly, nextTick } from 'vue'
+import { createI18n, I18nOptions, I18n  } from 'vue-i18n'
+import { ref, readonly, nextTick, WritableComputedRef } from 'vue'
 import { en, ru } from 'vuetify/locale'
+
+import { useLocaleStore } from '@store/locale'
 
 const DEFAULT_LOCALE = 'en'
 const SUPPORT_LOCALES = [ 'en', 'ru' ]
@@ -24,8 +26,18 @@ const i18nWrapper = new class I18nWrapper {
     this.uploadMessages( this._locale.value )
   }
 
+  subscribeOnLocaleStore() {
+    const localeStore = useLocaleStore()
+    localeStore.$subscribe( ( mutation, state ) => {
+      if ( state.activeLanguage?.locale && state.activeLanguage.locale !== this.i18n.global.locale ) {
+        this.setI18nLocale( state.activeLanguage.locale )
+        this.uploadMessages( ( this.i18n.global.locale as WritableComputedRef<string> ).value )
+      }
+    } )
+  }
+
   setI18nLocale( locale: string ): void {
-    this.i18n.global.locale = locale
+    ( this.i18n.global.locale as WritableComputedRef<string> ).value = locale
     this._locale.value = locale
     document.querySelector( 'html' )?.setAttribute( 'lang', locale )
   }
@@ -42,8 +54,9 @@ const i18nWrapper = new class I18nWrapper {
 } 
   
 i18nWrapper.setupI18n( {
-  locale: 'en',
+  locale: DEFAULT_LOCALE,
   legacy: false,
+  availableLocales: SUPPORT_LOCALES,
 } )
 
 export {
