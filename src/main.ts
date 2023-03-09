@@ -16,5 +16,6 @@ app.use( pinia )
 app.use( vuetify )
 app.use( i18nWrapper.i18n )
 
+i18nWrapper.subscribeOnLocaleStore()
 
 app.mount( '#app' )
