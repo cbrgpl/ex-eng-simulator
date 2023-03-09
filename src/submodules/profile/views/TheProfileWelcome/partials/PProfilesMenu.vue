@@ -80,6 +80,7 @@ defineExpose( {
 
         <template #action >
           <v-btn
+            class="w-100"
             color="success"
             :loading="loading"
             @click="createProfile" >

@@ -16,7 +16,7 @@ defineProps<{
   <v-list-item
     class="bg-blue-grey-lighten-5 pb-3" >  
     <div class="d-flex" >
-      <div class="flex-grow-1 profile-item__header-wrapper" >
+      <div class="flex-grow-1 list-item__header-wrapper" >
         <div class="mb-2" >
           <slot
             name="name"
@@ -38,16 +38,17 @@ defineProps<{
     </div>
 
 
-    <v-list-item-action class="profile-item__actions" >
+    <v-list-item-action class="list-item__actions" >
       <v-scroll-y-transition >
         <span
           v-show="active"
-          class="text-secondary align-self-center mr-auto" >
+          class="text-secondary align-self-lg-center mr-auto" >
           {{ t('Profile.IsProfileActive') }}
         </span>
       </v-scroll-y-transition>
-      <slot name="action" >
-      </slot>
+      <div class="list-item__buttons-container" >
+        <slot name="action" />
+      </div>
     </v-list-item-action>
   </v-list-item>
 </template>
@@ -55,14 +56,32 @@ defineProps<{
 <style scoped lang="scss" >
 @import '~vuetify';
 
-.profile-item__header-wrapper {
+.list-item__header-wrapper {
   margin-bottom: map-get($spacers, 2);
 }
 
-.profile-item__actions {
+.list-item__actions {
   justify-content: flex-end;
   align-items: stretch;
-  height: rem(36px);
   margin-top: map-get($spacers, 4); 
 }
+
+.list-item__buttons-container {
+  width: rem(128px);
+}
+
+:slotted(.list-item__button) {
+  height: rem(36px) !important;
+}
+
+@media screen and (min-width: map-get($grid-breakpoints, 'lg')) {
+  .list-item__buttons-container {
+    width: auto;
+  }
+
+  :slotted(.list-item__button) {
+    height: auto;
+  }
+}
+
 </style>
