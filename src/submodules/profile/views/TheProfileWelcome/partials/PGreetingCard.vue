@@ -4,6 +4,11 @@ import { useDisplay } from 'vuetify'
 
 const { t } = useI18n()
 const { lgAndUp } = useDisplay()
+
+const emit = defineEmits<{
+  ( e: 'focus-profile' ): void
+}>()
+
 </script>
 
 <template >
@@ -25,11 +30,14 @@ const { lgAndUp } = useDisplay()
     <v-card-actions class="d-flex flex-column flex-md-row justify-md-end" >
       <v-btn
         class="profile-welcome__button text-none px-4"
+       
         variant="elevated"
+        color="primary"
         rounded="sm"
-        prepend-icon="folder-plus"
         :size="lgAndUp ? 'large' : 'x-large'"
-        color="primary" >
+        
+        prepend-icon="folder-plus" 
+        @click="emit('focus-profile')" >
         {{ t('Profile.CreateNewProfile') }}
       </v-btn>
     </v-card-actions>

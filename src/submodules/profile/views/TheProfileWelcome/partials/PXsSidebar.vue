@@ -3,7 +3,11 @@
 </script>
 
 <template >
-  <v-navigation-drawer >
+  <v-navigation-drawer
+    absolute
+    location="bottom"
+    class="h-75" >
+    <slot />
   </v-navigation-drawer>
 </template>
 

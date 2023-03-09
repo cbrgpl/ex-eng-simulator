@@ -70,7 +70,7 @@ module.exports = {
     'comma-spacing': [ 'error', { 'after': true } ],
     'space-in-parens': [ 'error', 'always' ],
     'object-curly-spacing': [ 'error', 'always' ],
-    'func-call-spacing': [ 'error', 'never' ],
+    'func-call-spacing': 0,
     'computed-property-spacing': [ 'error', 'always' ],
     'key-spacing': [ 'error', { afterColon: true, mode: 'strict' } ],
     'template-curly-spacing': [ 'error', 'always' ],
