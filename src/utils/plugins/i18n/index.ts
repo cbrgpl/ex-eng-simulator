@@ -43,6 +43,7 @@ const i18nWrapper = new class I18nWrapper {
   
 i18nWrapper.setupI18n( {
   locale: 'en',
+  legacy: false,
 } )
 
 export {

@@ -18,14 +18,11 @@
   scrollbar-color: hsl(0deg 0% 89%);
 }
 
-html {
-  font-size: 10px;
-}
-
 body {
-  overflow: auto;
-  width: 100vw;
-  height: 100vh;
   background: hsl(0deg 0% 96%);
   color: hsl(180deg 25% 25%);
+}
+
+.pre-line {
+  white-space: pre-line;
 }

@@ -26,7 +26,7 @@ export const vuetify = createVuetify( {
       darken: 1,
     },
     themes: {
-      light: {
+      colors: {
         dark: false,
         colors: {
           background: '#efeff9',
@@ -34,14 +34,11 @@ export const vuetify = createVuetify( {
           white: '#f7f8fc',
           black: '#212121',
 
-          purple: '#5f5fc4',
-
           placeholder: '#b2b2b2',
           divider: '#BDBDBD',
 
           primary: '#5f5fc4',
-
-          secondary: '#d81b60',
+          secondary: '#ffa726',
 
           success: '#10b348',
           warning: '#facc15',

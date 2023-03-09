@@ -35,6 +35,12 @@ export default defineConfig( {
       '@': resolve( __dirname, 'src' ),
       '@store': resolve( __dirname, 'src', 'store' ),
       '@nav': resolve( __dirname, 'src', 'static', 'nav' ),
+      '@modules': resolve( __dirname, 'src', 'utils', 'modules' ),
+      '@api': resolve( __dirname, 'src', 'mocks' ),
+      '@validations': resolve( __dirname, 'src', 'utils', 'validations' ),
+
+      '@mprofile': resolve( __dirname, 'src', 'submodules', 'profile' ),
+      '~vuetify': resolve( __dirname, 'src', 'scss', 'libs', '_vuetify.scss' ),
     },
   },
 } )

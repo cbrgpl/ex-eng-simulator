@@ -8,6 +8,7 @@
     "jsx": "preserve",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noImplicitThis": true,
     "esModuleInterop": true,
     "strictPropertyInitialization": false,
     "lib": ["ESNext", "DOM"],
@@ -15,8 +16,14 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
+      "@mprofile/*": [ "src/submodules/profile/*" ],
+      "@mprofile": [ "src/submodules/profile" ],
+
+      "@api": [ "src/mocks" ],
       "@store/*": [ "src/store/*"],
       "@nav/*": [ "src/static/nav/*" ],
+      "@modules/*": [ "src/utils/modules/*" ],
+      "@validations": [ "src/utils/validations" ],
       "@/*": [ "src/*" ],
     }
   },

@@ -30,7 +30,7 @@ module.exports = {
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
       ],
-      rules: {
+      'rules': {
         'indent': 'off',
         '@typescript-eslint/indent': [ 'error', 2 ],
         '@typescript-eslint/no-unused-vars': 'error',
@@ -70,7 +70,7 @@ module.exports = {
     'comma-spacing': [ 'error', { 'after': true } ],
     'space-in-parens': [ 'error', 'always' ],
     'object-curly-spacing': [ 'error', 'always' ],
-    'func-call-spacing': [ 'error', 'never' ],
+    'func-call-spacing': 0,
     'computed-property-spacing': [ 'error', 'always' ],
     'key-spacing': [ 'error', { afterColon: true, mode: 'strict' } ],
     'template-curly-spacing': [ 'error', 'always' ],
@@ -123,9 +123,9 @@ module.exports = {
     ],
     'vue/component-name-in-template-casing': [
       'error',
-      'PascalCase',
+      'kebab-case',
       {
-        'registeredComponentsOnly': true,
+        'registeredComponentsOnly': false,  
       },
     ],
     'vue/attribute-hyphenation': [
