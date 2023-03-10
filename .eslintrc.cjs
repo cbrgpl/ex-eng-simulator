@@ -80,6 +80,7 @@ module.exports = {
     'func-style': 'error',
     'no-console': [
       'error',
+      { 'allow': [ 'warn' ] },
     ],
     'eol-last': [ 'error', 'always' ],
     'vue/html-indent': [

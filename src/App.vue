@@ -1,4 +1,7 @@
 <script setup lang="ts" >
+import { setLanguageAtInit } from './utils/composable/setLanguageAtInit'
+
+setLanguageAtInit()
 </script>
 
 <template >
