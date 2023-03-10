@@ -1,11 +1,17 @@
 import { createI18n, I18nOptions, I18n  } from 'vue-i18n'
-import { ref, readonly, nextTick, WritableComputedRef } from 'vue'
+import { nextTick, WritableComputedRef } from 'vue'
 import { en, ru } from 'vuetify/locale'
+import { MutationType } from 'pinia'
 
 import { useLocaleStore } from '@store/locale'
 
-const DEFAULT_LOCALE = 'en'
 const SUPPORT_LOCALES = [ 'en', 'ru' ]
+const envDefaultLocaleSupported = SUPPORT_LOCALES.includes( import.meta.env.VITE_DEFAULT_LOCALE )
+const DEFAULT_LOCALE = envDefaultLocaleSupported  ? import.meta.env.VITE_DEFAULT_LOCALE : 'en'
+
+if ( import.meta.env.VITE_DEFAULT_LOCALE && !envDefaultLocaleSupported ) {
+  console.warn( `Env locale variable "VITE_DEFAULT_LOCALE=${ import.meta.env.VITE_DEFAULT_LOCALE }" is not supported` )
+}
 
 const vuetifyTranslations = { 
   en, ru,
@@ -13,36 +19,39 @@ const vuetifyTranslations = {
 
 const i18nWrapper = new class I18nWrapper {
   i18n: I18n
-  private _locale = ref( DEFAULT_LOCALE )
 
-  get locale() {
-    return readonly( this._locale )
-  }
-  
   setupI18n( options: I18nOptions ): void {
     this.i18n = createI18n( options )
+    const setupLocale = options.locale || DEFAULT_LOCALE
 
-    this.setI18nLocale( options.locale || DEFAULT_LOCALE )
-    this.uploadMessages( this._locale.value )
+    this.setI18nLocale( setupLocale, false )
+    this.uploadMessages( setupLocale )
   }
 
   subscribeOnLocaleStore() {
     const localeStore = useLocaleStore()
     localeStore.$subscribe( ( mutation, state ) => {
       if ( state.activeLanguage?.locale && state.activeLanguage.locale !== this.i18n.global.locale ) {
-        this.setI18nLocale( state.activeLanguage.locale )
+        const cacheLanguage = mutation.type === MutationType.patchObject ? mutation.payload.cacheLanguage : true
+
+        this.setI18nLocale( state.activeLanguage.locale, cacheLanguage )
         this.uploadMessages( ( this.i18n.global.locale as WritableComputedRef<string> ).value )
       }
+
+      localeStore.cacheLanguage = true
     } )
   }
 
-  setI18nLocale( locale: string ): void {
+  private setI18nLocale( locale: string, cache?: boolean ): void {
     ( this.i18n.global.locale as WritableComputedRef<string> ).value = locale
-    this._locale.value = locale
     document.querySelector( 'html' )?.setAttribute( 'lang', locale )
+
+    if ( cache !== false ) {
+      localStorage.setItem( window.storageNames.LOCALE, locale )
+    }
   }
 
-  async uploadMessages( locale: string ) {
+  private async uploadMessages( locale: string ) {
     const messages = ( await import( `@/localization/${ locale }.json` ) as { default: object } ).default
 
     this.i18n.global.setLocaleMessage( locale, {
