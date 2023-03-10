@@ -21,7 +21,7 @@ const focusCreateProfile = () => {
     isXsSidebarVisible.value = true
   }
 
-  const sidebarAppearenceTime = 80
+  const sidebarAppearenceTime = 120
   setTimeout( () => profileMenu.value!.focus(), sidebarAppearenceTime )
 }
 

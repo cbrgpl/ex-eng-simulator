@@ -42,7 +42,7 @@ const { activeProfile } = storeToRefs( profileStore )
             {{ activeProfile.id }}. {{ activeProfile.name }}
           </v-card-title>
           <v-card-subtitle class="text-right" >
-            {{ t('Common.From') }} {{ activeProfile.creation }}
+            {{ t('Common.From') }} {{ activeProfile.creation.slice(0, 10) }}
           </v-card-subtitle>
         </v-card>
         <z-language-switcher v-if="smAndUp" />
