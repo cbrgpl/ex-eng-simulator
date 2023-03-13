@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n'
 
 import { useProfileStore } from '@store/profile'
 
+import PStorageWidget from './partials/PStorageWidget.vue'
 import ZLanguageSwitcher from '@/components/ZLanguageSwitcher.vue'
 
 const { t } = useI18n()
@@ -30,7 +31,9 @@ const { activeProfile } = storeToRefs( profileStore )
         #prepend >
         <slot name="app-bar-prepend" />
       </template>
-
+      <p-storage-widget
+        v-if="smAndUp"
+        class="mr-auto" />      
 
       <template #append >
         <v-card
@@ -62,6 +65,7 @@ const { activeProfile } = storeToRefs( profileStore )
       color="primary-darken-1"
       flat
       density="compact" >
+      <p-storage-widget />      
       <z-language-switcher />
     </v-app-bar>
 
