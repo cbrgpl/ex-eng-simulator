@@ -24,16 +24,18 @@ const { activeProfile } = storeToRefs( profileStore )
     full-height >
     <v-app-bar
       density="default"
-      class="overflow-visible"
+      class="profile-layout__header"
       color="primary-lighten-1" >
       <template
         v-if="!lgAndUp"
         #prepend >
         <slot name="app-bar-prepend" />
       </template>
+
       <p-storage-widget
         v-if="smAndUp"
         class="mr-auto" />      
+
 
       <template #append >
         <v-card
@@ -59,14 +61,13 @@ const { activeProfile } = storeToRefs( profileStore )
     <v-app-bar
       v-if="!smAndUp"
       v-model="smActionsBarVisible"
-      class="px-3 overflow-visible"  
+      class="px-6 overflow-visible"  
       absolute
       
       color="primary-darken-1"
-      flat
-      density="compact" >
-      <p-storage-widget />      
+      flat >
       <z-language-switcher />
+      <p-storage-widget class="ml-auto" />      
     </v-app-bar>
 
     <slot name="layout" />
@@ -83,6 +84,22 @@ const { activeProfile } = storeToRefs( profileStore )
 @media screen and (max-width: calc(map-get($grid-breakpoints, 'md') - 1px)) {
   .layout-profile__active-profile {
     max-width: rem(200px);
+  }
+}
+
+@media screen and (min-width: map-get($grid-breakpoints, 'sm')) {
+  :deep(.profile-layout__header) {
+    overflow: visible;
+    padding-inline-start: rem(10px);
+    padding-inline-end: rem(10px) !important;
+
+    & .v-toolbar__prepend {
+      margin-inline-start: 0 !important;
+    }
+
+    & .v-toolbar__append {
+      margin-inline-end: 0 !important;
+    }
   }
 }
 </style>

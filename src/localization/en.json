@@ -5,7 +5,8 @@
       "WelcomeDescription": "You are on the project language-simulator. The project allows you to improve your language skills using modern AI technologies. Use ChatGPT to review new topics and fix existing ones.\n\nThe resource will keep statistics of your sessions in the matter of studying materials and completing tasks, use this information to understand where you go next!\n\nYou need to select an active profile to continue using the resource. Use an existing profile or create a new one. Later you can easily change the active profile.",
       "CreateNewProfile": "Create",
       "AuthorizeExistProfile": "Log under an existing",
-      "ProfileName": "Name"
+      "ProfileName": "Name",
+      "StorageWidgetHelpText": "Because the project is not commercial and does not receive any financial support, we are not able to rent a server to store user data.\nAll your data is stored in a local repository provided by the browser, but it is limited to a certain amount."
     },
     "Common": {
       "From": "from",

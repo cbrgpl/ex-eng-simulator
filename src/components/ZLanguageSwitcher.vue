@@ -24,7 +24,7 @@ const setLanguage = ( language: ILanguage ) => {
     <v-btn
       min-width="24px"
       height="auto"
-      class="py-2 px-2"
+      class="py-0 px-0"
       :style="{'filter': isLanguageListVisible ? 'grayscale(0.70)' : 'grayscale(0)' }"
 
       rounded
