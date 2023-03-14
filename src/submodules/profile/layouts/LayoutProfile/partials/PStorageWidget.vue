@@ -1,7 +1,9 @@
 <script setup lang="ts" >
-import { useDisplay } from 'vuetify'
 import { ref, computed } from 'vue'
 import { localStorageManager } from '@modules/localStorageManager'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
 const helpButtonVisible = ref( false )
 const usedSpacePercent = computed( () => {
   if ( localStorageManager.storageLimit.value === null ) {
@@ -15,8 +17,10 @@ const spaceDetails = computed( () => {
     return ''
   }
 
-  return `${ ( localStorageManager.usedSpace.value / 1024 ).toFixed( 2 ) }MB / ${ ( localStorageManager.storageLimit.value / 1024 ).toFixed( 2 ) }MB`
+  return `${ ( localStorageManager.usedSpace.value / 1024 ).toFixed( 2 ) }KB / ${ ( localStorageManager.storageLimit.value / 1024 ).toFixed( 2 ) }KB`
 } ) 
+
+const snackbarVisible = ref( false )
 </script>
 
 <template >
@@ -32,8 +36,7 @@ const spaceDetails = computed( () => {
         :model-value="usedSpacePercent"
         :size="50"
         :width="12"
-        @click="helpButtonVisible = !helpButtonVisible" >
-      </v-progress-circular>
+        @click="helpButtonVisible = !helpButtonVisible" />
 
       <v-fade-transition >
         <v-btn
@@ -41,13 +44,24 @@ const spaceDetails = computed( () => {
           width="32px"
           min-width="24px"
           height="32px"
-          class="storage-widget__help" >
+          class="storage-widget__help"
+          @click="snackbarVisible = !(helpButtonVisible = false)" >
           <v-icon
             icon="help-circle"
             size="32px" />
         </v-btn>
       </v-fade-transition>
     </div>
+
+    <v-snackbar
+      v-model="snackbarVisible"
+      class="storage-widget__snackbar"
+      multi-line
+      timeout="10000"
+      location="top"
+      close-on-content-click >
+      {{ t('Profile.StorageWidgetHelpText') }}
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -57,7 +71,6 @@ const spaceDetails = computed( () => {
 .storage-widget {
   display: flex;
   overflow: visible;
-  cursor: pointer;
 }
 
 .storage-widget__space-details {
@@ -70,6 +83,7 @@ const spaceDetails = computed( () => {
 
 .storage-widget__circular-wrapper {
   position: relative;
+  cursor: pointer;
 }
 
 .storage-widget__help {
@@ -80,9 +94,13 @@ const spaceDetails = computed( () => {
   transform: translate(-50%, 50%);
 }
 
-
 .fade-transition-enter-active {
   transition: all 80ms ease;
+}
+
+.storage-widget__snackbar {
+  white-space: break-spaces;
+  cursor: pointer;
 }
 
 @media screen and (min-width: map-get($grid-breakpoints, 'sm')) {
