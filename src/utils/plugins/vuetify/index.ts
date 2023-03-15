@@ -11,6 +11,7 @@ export const vuetify = createVuetify( {
     defaultSet: 'mdi',
     sets: {
       mdi: iconify( 'mdi' ),
+      ic: iconify( 'ic' ),
     },
   },
 

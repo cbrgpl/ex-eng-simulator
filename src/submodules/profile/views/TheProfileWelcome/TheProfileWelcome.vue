@@ -5,6 +5,7 @@ import { useDisplay } from 'vuetify'
 import { useProfileStore } from '@/store/profile'
 
 import LayoutProfile from '@mprofile/layouts/LayoutProfile/LayoutProfile.vue'
+import ZStorageCard from '@mprofile/components/ZStorageCard/ZStorageCard.vue'
 
 import PLgSidebar from './partials/PLgSidebar.vue'
 import PXsSidebar from './partials/PXsSidebar.vue'
@@ -30,7 +31,7 @@ profileStore.get()
 </script>
 
 <template >
-  <layout-profile >
+  <layout-profile class="py-2" >
     <template #app-bar-prepend >
       <v-app-bar-nav-icon
         icon="menu"
@@ -46,14 +47,20 @@ profileStore.get()
         <p-profiles-menu ref="profileMenu" />
       </p-xs-sidebar>
     </template>
-    <div class="pa-2 flex-grow-1 overflow-hidden" >
-      <p-greeting-card @focusProfile="focusCreateProfile" />
+    <div class="profile-welcome__content" >
+      <p-greeting-card
+        elevation="4"
+        @focusProfile="focusCreateProfile" />
+      <z-storage-card elevation="4" />
     </div>
   </layout-profile>
 </template>
 
 <style scoped lang="scss" >
-
+.profile-welcome__content {
+  display: grid;
+  gap: rem(8px);
+}
 
 
 </style>
