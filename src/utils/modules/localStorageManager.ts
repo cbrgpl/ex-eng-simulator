@@ -1,5 +1,12 @@
 import { ref, readonly, computed } from 'vue'
 
+import { 
+  EventEmitter,
+  type IEventEmitterOwner,
+  StoreConnector,
+  type IStoreConnectorRestriction,
+} from '@modules/EventEmitter'
+
 const DEFINE_SIZE = 'define_storage_length'
 const STORAGE_LIMIT_VALUE = 'storage_limit'
 
@@ -72,9 +79,40 @@ class SizeTree {
   }
 }
 
-export const localStorageManager = new class LocalStorageManager {
+interface IStorageManagerEvents {
+  'limitChange': { oldLimit: number | null; newLimit: number };
+  'limitChangeReject': { newLimit: number };
+}
+
+const connectorEventRenderFns: IStoreConnectorRestriction<IStorageManagerEvents>  = {
+  'limitChange': {
+    title: ( args ) => args.newLimit + '',
+    setEventBasedProps: ( logPartial ) => {
+      return {
+        ...logPartial,
+        variant: 'message',
+      }
+    },
+  },
+  'limitChangeReject': {
+    title: ( args ) => args.newLimit + '',
+    setEventBasedProps: ( logPartial ) => {
+      return {
+        ...logPartial,
+        variant: 'error',
+      }
+    },
+  },
+}
+
+export const localStorageManager = new class LocalStorageManager implements IEventEmitterOwner<IStorageManagerEvents, InstanceType<typeof EventEmitter<IStorageManagerEvents>>> {
   private sizeTree: SizeTree = new SizeTree
   private _storageLimit = ref<null | number>( null )
+  
+  private eventEmitter = new EventEmitter<IStorageManagerEvents>()
+  private storeEmitterConnector: StoreConnector<IStorageManagerEvents, IStoreConnectorRestriction<IStorageManagerEvents>, 'storageThread'>
+  
+  private _definingLimit = ref( true )
 
   get storageLimit() {
     return readonly( this._storageLimit ) 
@@ -87,20 +125,42 @@ export const localStorageManager = new class LocalStorageManager {
   get varSizes() {
     return readonly( this.sizeTree.varSizes )
   }
-  
+
+  get definingLimit() {
+    return readonly( this._definingLimit )
+  }
+   
   async init(): Promise<void> {
     await this.defineStorageLimit()
+    this.storeEmitterConnector = new StoreConnector<IStorageManagerEvents, typeof connectorEventRenderFns, 'storageThread'>( 'storageThread', connectorEventRenderFns, this.eventEmitter  )
     this.sizeTree.init()
   }
 
-  public setStorageLimit( limit: number ): boolean {
+  // Event Emitter Proxies
+  on<Args extends Parameters<EventEmitter<IStorageManagerEvents>['on']>>( event: Args[0], handler: Args[1] ): ReturnType<EventEmitter<IStorageManagerEvents>['on']> {
+    return this.eventEmitter.on( event, handler )
+  }
+
+  off<Args extends Parameters<EventEmitter<IStorageManagerEvents>['on']>>( event: Args[0], handler: Args[1] ): ReturnType<EventEmitter<IStorageManagerEvents>['off']> {
+    return this.eventEmitter.off( event, handler )
+  }
+
+  // Core Logic
+  public setStorageLimit( limit: number ): void | true {
     try {
       localStorage.setItem( DEFINE_SIZE, '1'.repeat( limit ) )
+      
+      const oldLimit = this._storageLimit.value
       this._storageLimit.value = limit
-      localStorage.removeItem( DEFINE_SIZE )
+      
+      this.eventEmitter.notify( 'limitChange', { oldLimit, newLimit: limit } )
+      
       return true
     } catch ( err ) {
-      return false
+      this.eventEmitter.notify( 'limitChangeReject', { newLimit: limit } )
+    }
+    finally {
+      localStorage.removeItem( DEFINE_SIZE )
     }
   }
 
@@ -108,8 +168,12 @@ export const localStorageManager = new class LocalStorageManager {
     const limit = localStorage.getItem( STORAGE_LIMIT_VALUE )
 
     if ( limit === null ) {
+      this._definingLimit.value = true
+
       this._storageLimit.value = await this.searchStorageLimit()
       localStorage.setItem( STORAGE_LIMIT_VALUE, this._storageLimit.value.toString() )
+
+      this._definingLimit.value = false
       return
     }
 
@@ -168,7 +232,6 @@ export const localStorageManager = new class LocalStorageManager {
         localStorage.removeItem( DEFINE_SIZE )
       }
     }
-
     return findStorageLimit( minBytes, maxBytes ) as Promise<number>
   }
 }

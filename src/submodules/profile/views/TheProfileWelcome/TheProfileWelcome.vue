@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useDisplay } from 'vuetify'
 
 import { useProfileStore } from '@/store/profile'
+import { useConsoleStore } from '@store/console'
 
 import LayoutProfile from '@mprofile/layouts/LayoutProfile/LayoutProfile.vue'
 import ZStorageCard from '@mprofile/components/ZStorageCard/ZStorageCard.vue'
