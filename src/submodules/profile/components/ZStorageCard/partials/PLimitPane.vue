@@ -2,7 +2,7 @@
 import { ref, GlobalComponents } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { required } from '@validations'
+import { required, numeric } from '@validations'
 import { localStorageManager } from '@modules/localStorageManager'
 
 const { t } = useI18n()
@@ -11,7 +11,6 @@ const userLimit = ref<number | null>( null )
 const $userLimit = ref<GlobalComponents['VTextField'] | null>( null )
 const onSetLimitSubmition = async () => {
   const errors = await $userLimit.value!.validate()
-
   if ( errors.length !==  0 ) {
     return
   }
@@ -39,7 +38,7 @@ const onSetLimitSubmition = async () => {
                 ref="$userLimit"
                 
                 v-model.number="userLimit"
-                :rules="[ required ]"
+                :rules="[ required, numeric ]"
                 
                 class="mb-2"
                 variant="underlined"
