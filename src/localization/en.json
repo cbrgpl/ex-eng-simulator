@@ -6,12 +6,26 @@
       "CreateNewProfile": "Create",
       "AuthorizeExistProfile": "Log under an existing",
       "ProfileName": "Name",
-      "StorageWidgetHelpText": "Because the project is not commercial and does not receive any financial support, we are not able to rent a server to store user data.\nAll your data is stored in a local repository provided by the browser, but it is limited to a certain amount."
+      "StorageWidgetHelpText": "Because the project is not commercial and does not receive any financial support, we are not able to rent a server to store user data.\nAll your data is stored in a local repository provided by the browser, but it is limited to a certain amount.",
+      "StorageCard": "Manage Storage",
+      "StorageCardMemoryControl": "Here you can manage the application data. In case of a memory shortage, you can clear some data to free up memory.",
+      "StorageCardLimitControl": "You can change the amount of memory for the application if you have changed the value in your browser.",
+      "StorageCardStatistic": "And as a cherry on the cake you can study the statistics by the memory used in the app!",
+      "MemoryControl": "Memory",
+      "LimitControl": "Limit",
+      "MemoryUsageStatistic": "Statistic",
+      "LimitChangeTitle": "Storage limit changed",
+      "LimitChangeText": "Limit was changed from {oldLimit} to {newLimit}",
+      "LimitChangeRejectTitle": "Change limit error",
+      "LimitChangeRejectText": "New limit value {newLimit} rejects error when application try to set it",
+      "storageThread": "storage"
     },
     "Common": {
       "From": "from",
       "Create": "Create",
       "Delete": "Delete",
-      "Activate": "Activate"
+      "Activate": "Activate",
+      "Id": "Id: {id}",
+      "ConsoleEmptyTitle": "There are no logs in {thread} thread"
     }
 }
