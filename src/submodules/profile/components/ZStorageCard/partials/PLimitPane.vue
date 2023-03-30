@@ -18,6 +18,9 @@ const onSetLimitSubmition = async () => {
 
   const newLimitInBytes = Number( ( userLimit.value as number * 1024 ).toFixed( 0 ) )
   localStorageManager.setStorageLimit( newLimitInBytes )
+  
+  userLimit.value = 0
+  $userLimit.value!.reset()
 }
 
 </script>

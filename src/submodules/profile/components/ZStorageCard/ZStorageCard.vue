@@ -2,12 +2,14 @@
 import PLimitPane from './partials/PLimitPane.vue'
 import PMemoryPane from './partials/PMemoryPane.vue'
 import PMemoryStatistic from './partials/PMemoryStatistic.vue'
+import ZLogConsole from '@/components/ZLogConsole/ZLogConsole.vue'
 
 export default { 
   components: {
     PLimitPane,
     PMemoryPane,
     PMemoryStatistic,
+    ZLogConsole,
   },
 }
 </script>
@@ -79,6 +81,10 @@ const activePane = ref( panes[ 0 ].component )
         </v-window-item>
       </v-window>
     </v-card-text>
+
+    <v-divider />
+
+    <z-log-console thread="storageThread" />
   </v-card>
 </template>
 

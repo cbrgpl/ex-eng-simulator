@@ -1,4 +1,5 @@
 import { ref, readonly, computed } from 'vue'
+import { t } from '@/utils/plugins/i18n'
 
 import { 
   EventEmitter,
@@ -84,9 +85,11 @@ interface IStorageManagerEvents {
   'limitChangeReject': { newLimit: number };
 }
 
+const bytesToKb = ( bytes: number | null ) => bytes ? ( bytes / 1024 ).toFixed( 2 ) + 'Kb' : null
 const connectorEventRenderFns: IStoreConnectorRestriction<IStorageManagerEvents>  = {
   'limitChange': {
-    title: ( args ) => args.newLimit + '',
+    title: () => t( 'Profile.LimitChangeTitle' ),
+    text: ( args ) => t( 'Profile.LimitChangeText', { oldLimit: bytesToKb( args.oldLimit ), newLimit: bytesToKb( args.newLimit ) } ),
     setEventBasedProps: ( logPartial ) => {
       return {
         ...logPartial,
@@ -95,7 +98,8 @@ const connectorEventRenderFns: IStoreConnectorRestriction<IStorageManagerEvents>
     },
   },
   'limitChangeReject': {
-    title: ( args ) => args.newLimit + '',
+    title: () => t( 'Profile.LimitChangeRejectTitle' ),
+    text: ( args ) => t( 'Profile.LimitChangeRejectText', { newLimit: bytesToKb( args.newLimit ) } ),
     setEventBasedProps: ( logPartial ) => {
       return {
         ...logPartial,

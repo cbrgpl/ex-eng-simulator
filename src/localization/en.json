@@ -13,12 +13,19 @@
       "StorageCardStatistic": "And as a cherry on the cake you can study the statistics by the memory used in the app!",
       "MemoryControl": "Memory",
       "LimitControl": "Limit",
-      "MemoryUsageStatistic": "Statistic"
+      "MemoryUsageStatistic": "Statistic",
+      "LimitChangeTitle": "Storage limit changed",
+      "LimitChangeText": "Limit was changed from {oldLimit} to {newLimit}",
+      "LimitChangeRejectTitle": "Change limit error",
+      "LimitChangeRejectText": "New limit value {newLimit} rejects error when application try to set it",
+      "storageThread": "storage"
     },
     "Common": {
       "From": "from",
       "Create": "Create",
       "Delete": "Delete",
-      "Activate": "Activate"
+      "Activate": "Activate",
+      "Id": "Id: {id}",
+      "ConsoleEmptyTitle": "There are no logs in {thread} thread"
     }
 }

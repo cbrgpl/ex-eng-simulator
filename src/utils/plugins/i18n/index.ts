@@ -1,4 +1,4 @@
-import { createI18n, I18nOptions, I18n  } from 'vue-i18n'
+import { createI18n, I18nOptions, I18n, ComposerTranslation  } from 'vue-i18n'
 import { nextTick, WritableComputedRef } from 'vue'
 import { en, ru } from 'vuetify/locale'
 import { MutationType } from 'pinia'
@@ -68,8 +68,11 @@ i18nWrapper.setupI18n( {
   availableLocales: SUPPORT_LOCALES,
 } )
 
+const t = i18nWrapper.i18n.global.t as ComposerTranslation
+
 export {
   i18nWrapper,
   DEFAULT_LOCALE,
   SUPPORT_LOCALES,
+  t,
 }
